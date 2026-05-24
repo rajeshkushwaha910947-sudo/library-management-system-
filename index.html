@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📚 Library Management| Premium Library Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Login & Register Container -->
+<div id="authContainer" class="auth-container">
+    <!-- Login Form -->
+    <div id="loginForm" class="auth-card">
+        <div class="auth-header">
+            <div class="auth-logo">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h2>Welcome Back!</h2>
+            <p>Login to your Library Management account</p>
+        </div>
+        <div id="loginError" class="error-message" style="display: none;"></div>
+        <div class="input-group">
+            <label><i class="fas fa-envelope"></i> Email Address</label>
+            <input type="email" id="loginEmail" placeholder="admin@librarymanagement.com">
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-lock"></i> Password</label>
+            <input type="password" id="loginPassword" placeholder="••••••">
+        </div>
+        <button class="auth-btn" onclick="handleLogin()">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a></p>
+        </div>
+        <div class="demo-credentials">
+            <i class="fas fa-info-circle"></i> Demo Credentials:<br>
+            <strong>Email:</strong> admin@librisflow.com | <strong>Password:</strong> admin123
+        </div>
+    </div>
+
+    <!-- Register Form -->
+    <div id="registerForm" class="auth-card" style="display: none;">
+        <div class="auth-header">
+            <div class="auth-logo">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h2>Create Account</h2>
+            <p>Library today</p>
+        </div>
+        <div id="registerError" class="error-message" style="display: none;"></div>
+        <div class="input-group">
+            <label><i class="fas fa-user"></i> Full Name</label>
+            <input type="text" id="regFullName" placeholder="John Doe">
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-envelope"></i> Email Address</label>
+            <input type="email" id="regEmail" placeholder="your@email.com">
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-phone"></i> Phone Number (Optional)</label>
+            <input type="tel" id="regPhone" placeholder="+1 234 567 8900">
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-lock"></i> Password</label>
+            <input type="password" id="regPassword" placeholder="Min 6 characters">
+            <span class="input-hint">Password must be at least 6 characters</span>
+        </div>
+        <div class="input-group">
+            <label><i class="fas fa-check-circle"></i> Confirm Password</label>
+            <input type="password" id="regConfirmPassword" placeholder="Confirm your password">
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="regTerms">
+            <label for="regTerms">I agree to the <a href="#" onclick="showTerms()">Terms of Service</a> and <a href="#" onclick="showPrivacy()">Privacy Policy</a></label>
+        </div>
+        <button class="auth-btn" onclick="handleRegister()">
+            <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        <div class="auth-footer">
+            <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- Main App -->
+<div id="mainApp" class="app-container">
+    <!-- Premium Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand" onclick="navigateToPage('home')">
+                <div class="brand-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Library Management</h1>
+                    <p>Library Management System</p>
+                </div>
+            </div>
+
+            <div class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-item">
+                    <button class="nav-link-custom" data-page="home">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </button>
+                </div>
+                <div class="nav-item">
+                    <button class="nav-link-custom" data-page="library">
+                        <i class="fas fa-book"></i>
+                        <span>Library</span>
+                    </button>
+                </div>
+                <div class="nav-item">
+                    <button class="nav-link-custom" data-page="about">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-user-area">
+                <div class="search-toggle-btn" id="searchToggleBtn">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <div class="notification-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notificationBadge">0</span>
+                    <div class="notification-panel" id="notificationPanel">
+                        <div class="notification-header">
+                            <span>Notifications</span>
+                            <button class="clear-notif-btn" onclick="clearAllNotifications()">Clear all</button>
+                        </div>
+                        <div id="notificationList">
+                            <div class="notification-item">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="notif-content">
+                                    <p>Welcome to library!</p>
+                                    <span class="notif-time">Just now</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-profile">
+                        <div class="user-avatar" id="userAvatar">A</div>
+                        <div class="user-info-dropdown">
+                            <span class="user-name" id="userName">Admin</span>
+                            <span class="user-email" id="userEmail">admin@librisflow.com</span>
+                        </div>
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('home')">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </button>
+                        <button class="dropdown-item" onclick="navigateToPage('library')">
+                            <i class="fas fa-book"></i> My Library
+                        </button>
+                        <button class="dropdown-item" onclick="showProfileModal()">
+                            <i class="fas fa-user-circle"></i> Profile Settings
+                        </button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item logout-dropdown" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mobile-search-bar" id="mobileSearchBar">
+            <input type="text" id="mobileSearchInput" placeholder="Search books...">
+            <button onclick="closeMobileSearch()"><i class="fas fa-times"></i></button>
+        </div>
+    </nav>
+
+    <!-- Page Content Container -->
+    <div id="pageContent" class="page-content"></div>
+
+    <!-- Premium Footer -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="wave-fill"></path>
+            </svg>
+        </div>
+        <div class="footer-main">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Library Management</h3>
+                    </div>
+                    <p>Modern library management system designed to streamline book borrowing, returns, and inventory tracking with cutting-edge technology.</p>
+                    <div class="footer-badges">
+                        <span class="badge-premium"><i class="fas fa-crown"></i> Premium</span>
+                        <span class="badge-secure"><i class="fas fa-shield-alt"></i> Secure</span>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-compass"></i> Quick Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="navigateToPage('home')"><i class="fas fa-angle-right"></i> Home</a></li>
+                        <li><a href="#" onclick="navigateToPage('library')"><i class="fas fa-angle-right"></i> Library</a></li>
+                        <li><a href="#" onclick="navigateToPage('about')"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#" onclick="showFeatures()"><i class="fas fa-angle-right"></i> Features</a></li>
+                        <li><a href="#" onclick="showSupport()"><i class="fas fa-angle-right"></i> Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-newspaper"></i> Library Hours</h4>
+                    <ul class="footer-hours">
+                        <li><i class="fas fa-calendar-day"></i> Monday - Friday: 9am - 8pm</li>
+                        <li><i class="fas fa-calendar-weekend"></i> Saturday: 10am - 6pm</li>
+                        <li><i class="fas fa-calendar-times"></i> Sunday: Closed</li>
+                        <li><i class="fas fa-phone-alt"></i> Support: +1 (555) 123-4567</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4><i class="fas fa-envelope"></i> Newsletter</h4>
+                    <p>Subscribe for updates and new book arrivals.</p>
+                    <div class="newsletter-form">
+                        <input type="email" id="newsletterEmail" placeholder="Your email address">
+                        <button onclick="subscribeNewsletter()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 Library Management. All rights reserved. | Crafted with <i class="fas fa-heart"></i> for libraries worldwide</p>
+                </div>
+                <div class="footer-legal">
+                    <a href="#" onclick="showTerms()">Privacy Policy</a>
+                    <a href="#" onclick="showTerms()">Terms of Service</a>
+                    <a href="#" onclick="showPrivacy()">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-user-circle"></i> Profile Settings</h3>
+            <button class="modal-close" onclick="closeProfileModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="profile-avatar-large">
+                <div class="avatar-large" id="profileAvatar">A</div>
+            </div>
+            <div class="profile-field">
+                <label>Full Name</label>
+                <input type="text" id="profileName" placeholder="Your name">
+            </div>
+            <div class="profile-field">
+                <label>Email</label>
+                <input type="email" id="profileEmail" readonly>
+            </div>
+            <div class="profile-field">
+                <label>Phone Number</label>
+                <input type="tel" id="profilePhone" placeholder="Phone number">
+            </div>
+            <div class="profile-field">
+                <label>Member Since</label>
+                <input type="text" id="profileMemberSince" readonly>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeProfileModal()">Cancel</button>
+            <button class="btn-primary" onclick="updateProfile()">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
